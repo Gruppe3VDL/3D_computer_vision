@@ -35,7 +35,8 @@
 \usepackage{fancyhdr}
 \usepackage{cancel}
 \usepackage{abstract}
-\usepackage{minted}
+\usepackage{subfig}
+%\usepackage{minted}
 
 \sisetup{output-exponent-marker=\textsc{e}}
 
@@ -95,7 +96,7 @@
 \DeclareRobustCommand\stepproofc{\refstepcounter{proofc}\theproofc}
 \newenvironment{twoproof}{\tabular{@{\stepproofc}c|l}}{\endtabular}
 
-\usemintedstyle{tango}
+%\usemintedstyle{tango}
  %% The usual stuff that sits
  %% between \documentclass
  %%    and \begin{document}
@@ -324,6 +325,20 @@ In summary, to transform a 3D world coordinate point $\vec{p}_w$ to a 2D pixel p
 \vec{p} &= KR^t_{wc} \vec{p}_w \\
 \Rightarrow ~ \Aboxed{\vec{p} &= M \vec{p}_w} \label{eq:e18}
 \end{alignat}
+
+\newpage
+\section{Implementation}
+The samples of the implementation are the result of the first image.the difference could be seen from red and green dots.
+\begin{figure}[ht]
+ \centerline
+ {
+  \subfloat[]{\includegraphics[width=0.35\textwidth]{incorrected_sample.png}}
+  \qquad
+  \subfloat[]{\includegraphics[width=0.35\textwidth]{corrected_sample.png}}
+ }
+ \caption[Color inversion]{(a)sample with distortion (b)sample after modification}
+ \label{fig:inversion}
+\end{figure}
 
 
 
