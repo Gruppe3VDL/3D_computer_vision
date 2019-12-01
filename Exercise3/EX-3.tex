@@ -173,16 +173,53 @@
 \maketitle
 
 \section{General Homography Transformation Matrix}
-An homography ($\tilde{H} \in \mathbb{P}^{n \times n}$) on homogeneous coordinates is defined as the composition of a general Affine transformation $\mathbf{A} \in \mathbb{R}^{(n - 1) \times (n - 1)}$ (Rotation, Scaling, Reflection, Shearing), a translation $\mathbf{t} \in \mathbb{R}^{(n - 1) \times 1}$ and a projection $\mathbf{u} \in \mathbb{R}^{1 \times (n - 1)}$. Finally, the matrix is defined on terms of a scalar scaling factor $\alpha \in \mathbb{R}$ that accounts for the homogeneous coordinates transform. Written as a n-dimensional matrix \eqref{eq:e1}, the homography has $n^2 - 1$ degrees of freedom (DoF), dissected as it follows: the affine transformation accounts for $(n - 1)^2$ DoF, the translation transform has $n - 1$ DoF and the projection presents $n -1$ DoF. 
-
-It is necessary to establish that the scalar term $\alpha$ does not increase the total number of DoF of the transformation, as it describes an scaling transform that only takes effect when a coordinate on projective space is projected back into Cartesian coordinates.
+An homography ($\tilde{H} \in \mathbb{P}^{n \times n}$) on homogeneous coordinates is defined as the composition of a general Affine transformation $\mathbf{A} \in \mathbb{R}^{(n - 1) \times (n - 1)}$ (Rotation, Scaling, Reflection, Shearing), a translation $\mathbf{t} \in \mathbb{R}^{(n - 1) \times 1}$ and a projection $\mathbf{u} \in \mathbb{R}^{1 \times (n - 1)}$. A general representation of homography in \(P^{2x2}\) plane is given below
 
 \begin{alignat}{2}
 &\tilde{H} = \begin{bmatrix}
-\mathbf{A} & \mathbf{t} \\
-\mathbf{u}^{T} & \alpha
+\mathbf{A_{2x2}} & \mathbf{t_{2x1}} \\
+\mathbf{u_{2x1}}^{T} & \alpha
 \end{bmatrix} & \quad   \label{eq:e1}
 \end{alignat}
+
+It is to be noted that \(\alpha\) is the scalar value which scales the last value of homogeneous coordinate vector. This only is needed when the projection is from real world. In homography matrix, we are only concerned with planar homography and hence, \(\alpha\) needs to be equals to 1. Below is then degree of freedom provided for homography in $P^{2x2}$ \newline
+
+Degree of freedom in affine transformation $A_{2\times2}= 2\times2=4$
+
+Degree of freedom in translation $t_{2\times1}= 2\times1= 2$
+
+Degree of freedom in projection $u_{2\times1}= 2\times1=2$
+
+Total Degree of freedom = $DOF(A_{2\times2})+ DOF(t_{2\times1})+ DOF(u_{2\times1})= 4+2+2= 8$ \newline
+
+A point in n dimension is represented by n+1 dimension vector $[x_{1},x_{2},.., x_{n+1}]^{T}$. A homography of this dimensional vector would have dimensions $H_{(n+1)x(n+1)}$ and the formation of this vector is given below:
+
+\begin{alignat}{2}
+&\tilde{H} = \begin{bmatrix}
+\mathbf{A_{nxn}} & \mathbf{t_{nx1}} \\
+\mathbf{u_{nx1}}^{T} & \alpha
+\end{bmatrix} & \quad   \label{eq:e1}
+\end{alignat}
+\newline
+Total degree of freedom = $DOF(A_{nxn})+DOF(t_{nx1})+DOF(u_{nx1})$
+
+$= (n \times n) + (n \times 1) + (n \times 1)= n^{2}+2n$
+
+Simplifying the notation= $n^{2}+2n= (n+1)^{2}-1$
+
+
+General Notation for Degree of freedom = $(n+1)^{2}-1$ \newline
+
+Hence, homography in $P^{n \times n}$ has $(n+1)^{2} -1$ degree of freedom and is defined below:
+
+
+\begin{alignat}{2}
+&\tilde{H} = \begin{bmatrix}
+\mathbf{A_{nxn}} & \mathbf{t_{nx1}} \\
+\mathbf{u_{nx1}}^{T} & \alpha
+\end{bmatrix} & \quad   \label{eq:e1}
+\end{alignat}
+
 
 \section{Proof that an Homogeneous transform preserves lines}
 Given a point $x$ on projective space $\mathbb{P}^2$, a line is defined using a coefficient vector $L \in \mathbb{R}^{3 \times 1}$, as shown on \eqref{eq:e2}. It is possible to proof that an homography transform, described through a projective matrix $H$ preserves lines by showing that the line coeffcients are transformed by the inverse homography matrix $B$. This implies that the resulting point $x_{h}$ after applying the homography belongs to the line defined by the new set of coefficients, therefore, the Homography preserves lines.
@@ -196,6 +233,8 @@ B\underbrace{Hx}_{x_h} &= 0 \qquad &B &\in \mathbb{P}^{1 \times 2} \\
 \Rightarrow~ \Aboxed{Bx_h &= 0} \qquad &x_h &\in \mathbb{P}^{2 \times 1} \qed \label{eq:e3}
 \end{alignat}
 
+\section{Why does the rotation matrix computed from H2 need correction?}
+Since, Homography H2 was computed after manual rotation there was a minute error in the rotation and $R_{rel}$ was not orthogonal. SVD was applied to $R_{rel}$ in this case to resolve the error and compute the correct $R_{rel}$
 
 \section{Geometrical meaning of translation vector values}
 By applying the extrinsic parameter matrix $[R | t]$ to the camera pose coordinate system origin $(0, 0, 0, 1)^T$, is possible to obtain the corrected position of the camera with respect to the world coordinate system. \textit{i.e.,} The translation vector $t$. On this case, the displacement vector establishes the real position of the camera with respect to the world and the movement should the camera have to take in order to be perpendicular to the image plane.

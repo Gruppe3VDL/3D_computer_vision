@@ -69,5 +69,42 @@ def compute_relative_rotation():
 
     print("----------------------------------------")
 
+def compute_pose():
+  base_folder = './data/'
 
+  data = io.loadmat(base_folder + 'ex3.mat')
+  
+  H3_Homography = data['H3']
+  x_0=data['x_0']
+  y_0=data['y_0']
+  alpha_x=data['alpha_x']
+  alpha_y=data['alpha_y']
+  s=data["s"]
+  K_matrix=[[alpha_x[0][0],s[0][0],x_0[0][0]],
+            [0,alpha_y[0][0],y_0[0][0]],
+            [0,0,1]]
+  K_inverse=np.linalg.inv(K_matrix)
+  Projection_matrix=np.matmul(K_inverse,H3_Homography)
+  Projection_matrix=np.matmul(Projection_matrix,K_matrix)
+
+  r_1=Projection_matrix[:,0]
+  r_2=Projection_matrix[:,1]
+  mag_r1 = np.linalg.norm(r_1)
+  mag_r2 = np.linalg.norm(r_2)
+  lambda_=(mag_r1+mag_r2)/2
+  r_1/=lambda_
+  r_2/=lambda_
+  r_3=np.cross(r_1,r_2)
+  translation=Projection_matrix[:,2]
+  translation/=lambda_
+  Rotation_matrix=np.column_stack((r_1,r_2,r_3))
+  print("Rotation Matrix",Rotation_matrix)
+  print("translation",translation)
+print("----------------------------------------")
+print("Question 3")
+print("----------------------------------------")
 compute_relative_rotation()
+print("----------------------------------------")
+print("Question 4")
+print("----------------------------------------")
+compute_pose()
