@@ -173,10 +173,10 @@
 \maketitle
 
 \section{General Homography Transformation Matrix}
-An homography ($\tilde{H} \in \mathbb{P}^{n \times n}$) on homogeneous coordinates is defined as the composition of a general Affine transformation $\mathbf{A} \in \mathbb{R}^{(n - 1) \times (n - 1)}$ (Rotation, Scaling, Reflection, Shearing), a translation $\mathbf{t} \in \mathbb{R}^{(n - 1) \times 1}$ and a projection $\mathbf{u} \in \mathbb{R}^{1 \times (n - 1)}$. A general representation of homography in \(P^{2x2}\) plane is given below
+A homography ($\tilde{H} \in \mathbb{P}^{n \times n}$) on homogeneous coordinates is defined as the composition of a general Affine transformation $\mathbf{A} \in \mathbb{R}^{(n - 1) \times (n - 1)}$ (Rotation, Scaling, Reflection, Shearing), a translation $\mathbf{t} \in \mathbb{R}^{(n - 1) \times 1}$ and a projection $\mathbf{u} \in \mathbb{R}^{1 \times (n - 1)}$. A general representation of homography in \(P^{2\times2}\) plane is given below
 
 \begin{alignat}{2}
-&\tilde{H} = \begin{bmatrix}
+&\tilde{H}_{3\times3} = \begin{bmatrix}
 \mathbf{A_{2x2}} & \mathbf{t_{2x1}} \\
 \mathbf{u_{2x1}}^{T} & \alpha
 \end{bmatrix} & \quad   \label{eq:e1}
@@ -192,16 +192,16 @@ Degree of freedom in projection $u_{2\times1}= 2\times1=2$
 
 Total Degree of freedom = $DOF(A_{2\times2})+ DOF(t_{2\times1})+ DOF(u_{2\times1})= 4+2+2= 8$ \newline
 
-A point in n dimension is represented by n+1 dimension vector $[x_{1},x_{2},.., x_{n+1}]^{T}$. A homography of this dimensional vector would have dimensions $H_{(n+1)x(n+1)}$ and the formation of this vector is given below:
+A point in n dimension is represented by n+1 dimension vector $[x_{1},x_{2},.., x_{n+1}]^{T}$. A homography of this dimensional vector would have dimensions $H_{(n+1)\times (n+1)}$ and the formation of this vector is given below:
 
 \begin{alignat}{2}
-&\tilde{H} = \begin{bmatrix}
-\mathbf{A_{nxn}} & \mathbf{t_{nx1}} \\
-\mathbf{u_{nx1}}^{T} & \alpha
+&\tilde{H}_{(n+1)\times(n+1)} = \begin{bmatrix}
+\mathbf{A_{n\times n}} & \mathbf{t_{n\times 1}} \\
+\mathbf{u_{n\times 1}}^{T} & \alpha
 \end{bmatrix} & \quad   \label{eq:e1}
 \end{alignat}
 \newline
-Total degree of freedom = $DOF(A_{nxn})+DOF(t_{nx1})+DOF(u_{nx1})$
+Total degree of freedom = $DOF(A_{n\times n})+DOF(t_{n\times1})+DOF(u_{n\times1})$
 
 $= (n \times n) + (n \times 1) + (n \times 1)= n^{2}+2n$
 
@@ -214,7 +214,7 @@ Hence, homography in $P^{n \times n}$ has $(n+1)^{2} -1$ degree of freedom and i
 
 
 \begin{alignat}{2}
-&\tilde{H} = \begin{bmatrix}
+&\tilde{H}_{(n+1)\times(n+1)} = \begin{bmatrix}
 \mathbf{A_{nxn}} & \mathbf{t_{nx1}} \\
 \mathbf{u_{nx1}}^{T} & \alpha
 \end{bmatrix} & \quad   \label{eq:e1}
